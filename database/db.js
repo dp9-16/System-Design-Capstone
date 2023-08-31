@@ -24,12 +24,12 @@ const Review = `
     summary VARCHAR(255),
     body VARCHAR(1000),
     recommend boolean,
+    reported boolean,
     reviewer_name VARCHAR(255),
     review_email VARCHAR(255),
     response VARCHAR(1000),
     helpfulness INT,
-    PRIMARY KEY(review_id),
-    FOREIGN KEY (rev_product_id) REFERENCES product (product_id)
+    PRIMARY KEY(review_id)
 )`;
 
 const Photos = `
@@ -41,14 +41,15 @@ const Photos = `
     FOREIGN KEY (ph_review_id) REFERENCES review (review_id)
 )`;
 
-// (async () => {
+(async () => {
 const pool = new Pool(config);
 
-//   await pool.connect()
+  await pool.connect()
 //   // await pool.query(`CREATE DATABASE IF NOT EXISTS ratings`)
 //   await pool.query(Product)
-//   await pool.query(Review)
+  await pool.query(Review)
 //   await pool.query(Photos)
-//   await pool.end()
-// })();
-module.exports = pool;
+  await pool.end()
+})();
+
+// module.exports = pool;

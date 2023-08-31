@@ -6,10 +6,10 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-async () => {
-  pool.connect();
-  pool.end();
-}
+// async () => {
+//   pool.connect();
+//   pool.end();
+// }
 
 app.listen(PORT);
 console.log(`Server listening at http://localhost:${PORT}`)
