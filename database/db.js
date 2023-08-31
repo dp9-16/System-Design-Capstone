@@ -8,38 +8,6 @@ const config = {
   port: process.env.DB_PORT,
   database: process.env.DB_DATABASE
 }
-const Product = `
-  CREATE TABLE IF NOT EXISTS product(
-    product_id INT,
-    product_name VARCHAR(255),
-    PRIMARY KEY(product_id)
-)`;
-
-const Review = `
-  CREATE TABLE IF NOT EXISTS review(
-    review_id INT,
-    rev_product_id INT,
-    rating INT,
-    date VARCHAR(255),
-    summary VARCHAR(255),
-    body VARCHAR(1000),
-    recommend boolean,
-    reported boolean,
-    reviewer_name VARCHAR(255),
-    review_email VARCHAR(255),
-    response VARCHAR(1000),
-    helpfulness INT,
-    PRIMARY KEY(review_id)
-)`;
-
-const Photos = `
-  CREATE TABLE IF NOT EXISTS photos(
-    photo_id INT,
-    product_name VARCHAR(255),
-    ph_review_id INT,
-    PRIMARY KEY(photo_id),
-    FOREIGN KEY (ph_review_id) REFERENCES review (review_id)
-)`;
 
 (async () => {
 const pool = new Pool(config);
