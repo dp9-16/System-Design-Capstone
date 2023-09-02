@@ -7,12 +7,17 @@
   "engines": {
     "node": ">=6.13.0"
   },
-  "scripts": {},
+  "scripts": {
+    "server-dev": "node ./server/index.js"
+  },
   "dependencies": {
     "csv-parser": "^3.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "pg": "^8.11.3"
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "pg": "^8.11.3",
+    "pg-format": "^1.0.4"
   },
   "devDependencies": {
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"

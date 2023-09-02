@@ -9,15 +9,7 @@ const config = {
   database: process.env.DB_DATABASE
 }
 
-(async () => {
+// (async () => {
 const pool = new Pool(config);
 
-  await pool.connect()
-//   // await pool.query(`CREATE DATABASE IF NOT EXISTS ratings`)
-//   await pool.query(Product)
-  await pool.query(Review)
-//   await pool.query(Photos)
-  await pool.end()
-})();
-
-// module.exports = pool;
+module.exports = pool;
