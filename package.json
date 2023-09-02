@@ -4,14 +4,30 @@
   "description": "",
   "author": "",
   "license": "",
+  "main": "src/database/database.ts",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
-  },
-  "dependencies": {
+    "start": "ts-node src/server",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'tests/**/*.ts'"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "@types/chai": "^4.3.5",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.5.7",
+    "axios-mock-adapter": "^1.21.5",
+    "chai": "^4.3.8",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "sequelize": "^6.32.1",
+    "sequelize-typescript": "^2.1.5"
   }
 }
