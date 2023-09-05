@@ -8,7 +8,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "server-dev": "node ./server/index.js"
+    "server-dev": "node ./server/index.js",
+    "test": "mocha"
   },
   "dependencies": {
     "csv-parser": "^3.0.0",
@@ -20,6 +21,9 @@
     "pg-format": "^1.0.4"
   },
   "devDependencies": {
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
+    "chai": "^4.3.8",
+    "chai-http": "^4.4.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "mocha": "^10.2.0"
   }
 }
