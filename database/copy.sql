@@ -12,8 +12,8 @@ DROP TABLE IF EXISTS Review CASCADE;
 CREATE TABLE Review (
   id SERIAL,
   product_id_Product INTEGER,
-  rating INTEGER NOT NULL,
-  date BIGINT NOT NULL,
+  rating INTEGER NOT NULL DEFAULT 0,
+  date TIMESTAMP NOT NULL,
   summary TEXT NOT NULL,
   body TEXT NOT NULL,
   recommend BOOLEAN NOT NULL,
