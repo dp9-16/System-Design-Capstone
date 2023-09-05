@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "ts-node src/server --watch",
-    "test": "mocha --require ts-node/register test/**/*.spec.ts"
+    "test": "mocha --require ts-node/register test/**/*.spec.ts",
+    "init db": " run src/database/ETL.sql"
   },
   "devDependencies": {
     "@types/chai": "^4.3.5",
