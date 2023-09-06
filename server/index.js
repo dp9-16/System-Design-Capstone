@@ -94,50 +94,33 @@ app.get('/reviews/meta', (req,res) => {
     res.sendStatus(400);
   })
 })
-app.post('/reviews', (req, res) => {
-  const reviewData = req.body;
-  const date = new Date();
-  let revid;
+app.post('/reviews', (req,res) => {
+  var id = req.body.product_id;
+  var date = new Date();
+  let rev_id;
   db.query(`SELECT id
   FROM Review
   ORDER BY id DESC
   LIMIT 1
   `).then((results) => {
-    revid = results.rows[0].id + 1;
+    rev_id = results.rows[0].id;
     db.query(
-      `INSERT INTO Review (id, product_id_Product, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
-      [revid, reviewData.product_id, reviewData.rating, date.toISOString(), reviewData.summary, reviewData.body, reviewData.recommend, false, reviewData.name, reviewData.email, null, 0]
-    )
-  }) .then(() => {
-    return db.query(`SELECT id
-    FROM Photos
-    ORDER BY id DESC
-    LIMIT 1`)
-  }) .then((result) => {
-    var pid = result.rows[0].id + 10;
-    const photoInserts = reviewData.photos.map((photoUrl) =>
-      db.query('INSERT INTO Photos (id,review_id, photo_url) VALUES ($1, $2, $3)', [pid, revid, photoUrl])
-    );
-    return Promise.all(photoInserts);
-  }) .then(() => {
-    return db.query(`SELECT id
-    FROM char_rating
-    ORDER BY id DESC
-    LIMIT 1`)
-  }) .then((response) => {
-    var cid = result.rows[0].id + 10;
-    const characteristicInserts = Object.entries(reviewData.characteristics).map(([key, value]) =>
-    db.query('INSERT INTO char_rating (id,characteristic_id, review_id, char_value) VALUES ($1, $2, $3, $4)', [cid, key, revid, value])
-    );
-    return Promise.all(characteristicInserts);
-  }) .then(() => {
-    res.sendStatus(201);
-  }) .catch((err) => {
-    console.error(err);
-    res.sendStatus(400);
-  });
-});
+      `INSERT INTO Review (product_id_Product, rating, date, summary, body, recommend, reported, reviewer_name, reviewer_email, response, helpfulness) VALUES (${id},${req.body.rating},'${date.toISOString()}','${req.body.summary}','${req.body.body}',${req.body.recommend},false,'${req.body.name}','${req.body.email}',null,0)
+      RETURNING id`)
+    }) .then(() => {
+      for (var i = 0; i < req.body.photos.length; i++) {
+        db.query(`INSERT INTO Photos (review_id, photo_url) VALUES (${rev_id},'${req.body.photos[i]}')`)
+      }
+    }) .then(() => {
+      for (var key in req.body.characteristics) {
+        db.query(`INSERT INTO char_rating (characteristic_id, review_id, char_value) VALUES (${key}::NUMERIC,${rev_id},${req.body.characteristics[key]})`)
+      }
+      res.status(200).send('CREATED');
+    }) .catch((err) => {
+      console.error(err);
+      res.send(400)
+    })
+})
 app.put('/reviews/:review_id/helpful', (req,res) => {
   var id = Number(req.params.review_id);
   db.query(`UPDATE Review r SET helpfulness = helpulness+1 WHERE r.id='${id}'`)

@@ -13,7 +13,7 @@ CREATE TABLE Review (
   id SERIAL,
   product_id_Product INTEGER,
   rating INTEGER NOT NULL DEFAULT 0,
-  date TIMESTAMP NOT NULL,
+  date BIGINT NOT NULL,
   summary TEXT NOT NULL,
   body TEXT NOT NULL,
   recommend BOOLEAN NOT NULL,
@@ -57,3 +57,7 @@ ALTER TABLE char_rating ADD FOREIGN KEY (review_id) REFERENCES Review (id);
 \COPY Characteristics FROM './data/characteristics.csv' DELIMITER ',' CSV HEADER;
 \COPY char_rating FROM './data/characteristic_reviews.csv' DELIMITER ',' CSV HEADER;
 ALTER TABLE Review ALTER column date TYPE TIMESTAMP USING TIMEZONE('UTC', TO_TIMESTAMP(date / 1000));
+SELECT setval('review_id_seq', (SELECT MAX(r.id) FROM Review r)+1);
+SELECT setval('photos_id_seq', (SELECT MAX(ph.id) FROM Photos ph)+1);
+SELECT setval('characteristics_id_seq', (SELECT MAX(c.id) FROM Characteristics c)+1);
+SELECT setval('char_rating_id_seq', (SELECT MAX(cr.id) FROM char_rating cr)+1);
