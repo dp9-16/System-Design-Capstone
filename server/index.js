@@ -83,6 +83,7 @@ app.get('/reviews/meta', (req,res) => {
   ) AS characteristics
   FROM Review rv
   WHERE rv.product_id_Product = ${id}
+  LIMIT 1
   `
   )
   .then((result) => {
