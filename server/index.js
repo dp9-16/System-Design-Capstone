@@ -22,7 +22,9 @@ app.get('/reviews/', (req,res) => {
   var id = Number(req.query.product_id);
   var count = Number(req.query.count) || 5;
   var page = Number(req.query.page) || 0;
-  db.query(`SELECT r.*,
+  db.query(`
+  EXPLAIN
+  SELECT r.*,
    (SELECT
     JSONB_AGG(
       JSONB_BUILD_OBJECT(
@@ -34,7 +36,7 @@ app.get('/reviews/', (req,res) => {
     WHERE r.id = p.review_id
     LIMIT 10) AS photos
     FROM Review r
-    WHERE r.product_id_Product='${id}' AND r.reported ='false'
+    WHERE r.product_id_Product='${id}' AND r.reported = false
     LIMIT ${count} OFFSET ${count * page}`)
     .then((result) => {
       var obj = {

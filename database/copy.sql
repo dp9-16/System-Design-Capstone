@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS Product CASCADE;
+DROP DATABASE IF EXISTS ratings;
+CREATE DATABASE ratings;
+\c ratings;
 CREATE TABLE Product (
   product_id SERIAL,
   prod_name TEXT NOT NULL,
@@ -8,7 +10,6 @@ CREATE TABLE Product (
   default_price TEXT NOT NULL,
   PRIMARY KEY (product_id)
 );
-DROP TABLE IF EXISTS Review CASCADE;
 CREATE TABLE Review (
   id SERIAL,
   product_id_Product INTEGER,
@@ -24,21 +25,18 @@ CREATE TABLE Review (
   helpfulness INTEGER NOT NULL DEFAULT 0,
   PRIMARY KEY (id)
 );
-DROP TABLE IF EXISTS Photos CASCADE;
 CREATE TABLE Photos (
   id SERIAL,
   review_id INTEGER NOT NULL,
   photo_url TEXT NOT NULL,
   PRIMARY KEY (id)
 );
-DROP TABLE IF EXISTS Characteristics CASCADE;
 CREATE TABLE Characteristics (
   id SERIAL,
   product_id_Product INTEGER,
   name TEXT NOT NULL,
   PRIMARY KEY (id)
 );
-DROP TABLE IF EXISTS char_rating CASCADE;
 CREATE TABLE char_rating (
   id SERIAL,
   characteristic_id INTEGER,
@@ -61,3 +59,15 @@ SELECT setval('review_id_seq', (SELECT MAX(r.id) FROM Review r)+1);
 SELECT setval('photos_id_seq', (SELECT MAX(ph.id) FROM Photos ph)+1);
 SELECT setval('characteristics_id_seq', (SELECT MAX(c.id) FROM Characteristics c)+1);
 SELECT setval('char_rating_id_seq', (SELECT MAX(cr.id) FROM char_rating cr)+1);
+CREATE INDEX idx_rid ON Review (id);
+CREATE INDEX idx_rp_id ON Review (product_id_Product);
+CREATE INDEX idx_r_rating ON Review (rating);
+CREATE INDEX idx_r_reported ON Review (reported);
+CREATE INDEX idx_pid ON Photos (id);
+CREATE INDEX idx_pr_id ON Photos (review_id);
+CREATE INDEX idx_p_url ON Photos (photo_url);
+CREATE INDEX idx_cid ON Characteristics (id);
+CREATE INDEX idx_cp_id ON Characteristics (product_id_Product);
+
+CREATE INDEX idx_crid ON char_rating (characteristic_id);
+CREATE INDEX idx_cr_val ON char_rating (char_value);
