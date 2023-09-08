@@ -149,7 +149,7 @@ app.put('/reviews/:review_id/report', (req,res) => {
 // db.end()
 
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT);
 console.log(`Server listening at http://localhost:${PORT}`)
 module.exports = { app };
