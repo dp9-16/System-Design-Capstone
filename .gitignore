@@ -1,4 +1,4 @@
-## MAC files ##
+C files ##
 .DS_Store
 
 ## NPM ##
@@ -26,3 +26,4 @@ dist/
 
 .env
 data/
+loaderio-670a89f1b70dbffb4ec6c33f584fbab1.txt
