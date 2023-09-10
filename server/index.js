@@ -7,7 +7,6 @@ const db = require('../database/db.js');
 
 const app = express();
 app.use(express.json());
-app.use(express.static(path.join(__dirname,'../public')))
 
 var sql = fs.readFileSync(path.join(__dirname, '../database/copy.sql')).toString();
 
@@ -19,9 +18,6 @@ db.connect(function (err, client, done) {
 })
 
 //router functions
-app.get('http://ec2-18-224-53-249.us-east-2.compute.amazonaws.com/loaderio-670a89f1b70dbffb4ec6c33f584fbab1.txt', (req,res) => {
-  res.send('loaderio-670a89f1b70dbffb4ec6c33f584fbab1');
-})
 app.get('/reviews/', (req,res) => {
   var id = Number(req.query.product_id);
   var count = Number(req.query.count) || 5;
