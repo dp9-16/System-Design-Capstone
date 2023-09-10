@@ -23,7 +23,6 @@ app.get('/reviews/', (req,res) => {
   var count = Number(req.query.count) || 5;
   var page = Number(req.query.page) || 1;
   db.query(`
-  EXPLAIN
   SELECT r.*,
    (SELECT
     JSONB_AGG(
