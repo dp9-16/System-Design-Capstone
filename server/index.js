@@ -21,9 +21,8 @@ db.connect(function (err, client, done) {
 app.get('/reviews/', (req,res) => {
   var id = Number(req.query.product_id);
   var count = Number(req.query.count) || 5;
-  var page = Number(req.query.page) || 0;
+  var page = Number(req.query.page) || 1;
   db.query(`
-  EXPLAIN
   SELECT r.*,
    (SELECT
     JSONB_AGG(
@@ -37,7 +36,7 @@ app.get('/reviews/', (req,res) => {
     LIMIT 10) AS photos
     FROM Review r
     WHERE r.product_id_Product='${id}' AND r.reported = false
-    LIMIT ${count} OFFSET ${count * page}`)
+    LIMIT ${count} OFFSET ${count * (page - 1)}`)
     .then((result) => {
       var obj = {
         "product": req.query.product_id,
@@ -149,7 +148,7 @@ app.put('/reviews/:review_id/report', (req,res) => {
 // db.end()
 
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT);
 console.log(`Server listening at http://localhost:${PORT}`)
 module.exports = { app };
