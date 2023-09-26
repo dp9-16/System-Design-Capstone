@@ -1,6 +1,6 @@
 # Project Name
 
-> Project description
+> The System Design Capstone is a project with the purpose to develop a functioning backend system with api routes which were created from an existing frontend website. The Project requires the use of an ETL process to migrate existing data to a newly created and scalable database and set up API routes to return specific and expected values.
 
 ## Related Projects
 
@@ -34,7 +34,12 @@ Once installed:
 1. Enter 'sudo -u postgres psql' from the root directory
 1. Type '\i database/copy.sql;'
 
-## Development
+## Built With: 
+![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![Mocha](https://img.shields.io/badge/-mocha-%238D6748?style=for-the-badge&logo=mocha&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 ### Installing Dependencies
 
